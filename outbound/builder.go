@@ -31,30 +31,12 @@ func New(ctx context.Context, router adapter.Router, logger log.ContextLogger, t
 		return NewSocks(router, logger, tag, options.SocksOptions)
 	case C.TypeHTTP:
 		return NewHTTP(ctx, router, logger, tag, options.HTTPOptions)
-	case C.TypeShadowsocks:
-		return NewShadowsocks(ctx, router, logger, tag, options.ShadowsocksOptions)
 	case C.TypeVMess:
 		return NewVMess(ctx, router, logger, tag, options.VMessOptions)
-	case C.TypeTrojan:
-		return NewTrojan(ctx, router, logger, tag, options.TrojanOptions)
-	case C.TypeWireGuard:
-		return NewWireGuard(ctx, router, logger, tag, options.WireGuardOptions)
-	case C.TypeHysteria:
-		return NewHysteria(ctx, router, logger, tag, options.HysteriaOptions)
-	case C.TypeTor:
-		return NewTor(ctx, router, logger, tag, options.TorOptions)
-	case C.TypeSSH:
-		return NewSSH(ctx, router, logger, tag, options.SSHOptions)
-	case C.TypeShadowTLS:
-		return NewShadowTLS(ctx, router, logger, tag, options.ShadowTLSOptions)
-	case C.TypeShadowsocksR:
-		return NewShadowsocksR(ctx, router, logger, tag, options.ShadowsocksROptions)
 	case C.TypeVLESS:
 		return NewVLESS(ctx, router, logger, tag, options.VLESSOptions)
 	case C.TypeTUIC:
 		return NewTUIC(ctx, router, logger, tag, options.TUICOptions)
-	case C.TypeHysteria2:
-		return NewHysteria2(ctx, router, logger, tag, options.Hysteria2Options)
 	case C.TypeSelector:
 		return NewSelector(ctx, router, logger, tag, options.SelectorOptions)
 	case C.TypeURLTest:

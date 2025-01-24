@@ -13,18 +13,9 @@ type _Outbound struct {
 	DirectOptions       DirectOutboundOptions       `json:"-"`
 	SocksOptions        SocksOutboundOptions        `json:"-"`
 	HTTPOptions         HTTPOutboundOptions         `json:"-"`
-	ShadowsocksOptions  ShadowsocksOutboundOptions  `json:"-"`
 	VMessOptions        VMessOutboundOptions        `json:"-"`
-	TrojanOptions       TrojanOutboundOptions       `json:"-"`
-	WireGuardOptions    WireGuardOutboundOptions    `json:"-"`
-	HysteriaOptions     HysteriaOutboundOptions     `json:"-"`
-	TorOptions          TorOutboundOptions          `json:"-"`
-	SSHOptions          SSHOutboundOptions          `json:"-"`
-	ShadowTLSOptions    ShadowTLSOutboundOptions    `json:"-"`
-	ShadowsocksROptions ShadowsocksROutboundOptions `json:"-"`
 	VLESSOptions        VLESSOutboundOptions        `json:"-"`
 	TUICOptions         TUICOutboundOptions         `json:"-"`
-	Hysteria2Options    Hysteria2OutboundOptions    `json:"-"`
 	SelectorOptions     SelectorOutboundOptions     `json:"-"`
 	URLTestOptions      URLTestOutboundOptions      `json:"-"`
 }
@@ -42,30 +33,12 @@ func (h *Outbound) RawOptions() (any, error) {
 		rawOptionsPtr = &h.SocksOptions
 	case C.TypeHTTP:
 		rawOptionsPtr = &h.HTTPOptions
-	case C.TypeShadowsocks:
-		rawOptionsPtr = &h.ShadowsocksOptions
 	case C.TypeVMess:
 		rawOptionsPtr = &h.VMessOptions
-	case C.TypeTrojan:
-		rawOptionsPtr = &h.TrojanOptions
-	case C.TypeWireGuard:
-		rawOptionsPtr = &h.WireGuardOptions
-	case C.TypeHysteria:
-		rawOptionsPtr = &h.HysteriaOptions
-	case C.TypeTor:
-		rawOptionsPtr = &h.TorOptions
-	case C.TypeSSH:
-		rawOptionsPtr = &h.SSHOptions
-	case C.TypeShadowTLS:
-		rawOptionsPtr = &h.ShadowTLSOptions
-	case C.TypeShadowsocksR:
-		rawOptionsPtr = &h.ShadowsocksROptions
 	case C.TypeVLESS:
 		rawOptionsPtr = &h.VLESSOptions
 	case C.TypeTUIC:
 		rawOptionsPtr = &h.TUICOptions
-	case C.TypeHysteria2:
-		rawOptionsPtr = &h.Hysteria2Options
 	case C.TypeSelector:
 		rawOptionsPtr = &h.SelectorOptions
 	case C.TypeURLTest:
