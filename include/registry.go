@@ -8,13 +8,10 @@ import (
 	"github.com/sagernet/sing-box/protocol/direct"
 	"github.com/sagernet/sing-box/protocol/dns"
 	"github.com/sagernet/sing-box/protocol/group"
-	"github.com/sagernet/sing-box/protocol/http"
 	"github.com/sagernet/sing-box/protocol/mixed"
-	"github.com/sagernet/sing-box/protocol/naive"
 	"github.com/sagernet/sing-box/protocol/redirect"
 	"github.com/sagernet/sing-box/protocol/tun"
 	"github.com/sagernet/sing-box/protocol/vless"
-	"github.com/sagernet/sing-box/protocol/vmess"
 )
 
 func InboundRegistry() *inbound.Registry {
@@ -24,15 +21,9 @@ func InboundRegistry() *inbound.Registry {
 	redirect.RegisterRedirect(registry)
 	redirect.RegisterTProxy(registry)
 	direct.RegisterInbound(registry)
-
-	http.RegisterInbound(registry)
 	mixed.RegisterInbound(registry)
-
-	
-	vmess.RegisterInbound(registry)
-	
-	naive.RegisterInbound(registry)
 	vless.RegisterInbound(registry)
+
 	return registry
 }
 
@@ -47,7 +38,6 @@ func OutboundRegistry() *outbound.Registry {
 	group.RegisterSelector(registry)
 	group.RegisterURLTest(registry)
 
-	vmess.RegisterOutbound(registry)
 	vless.RegisterOutbound(registry)
 
 	return registry
