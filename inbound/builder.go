@@ -24,16 +24,6 @@ func New(ctx context.Context, router adapter.Router, logger log.ContextLogger, t
 		return NewTProxy(ctx, router, logger, tag, options.TProxyOptions), nil
 	case C.TypeDirect:
 		return NewDirect(ctx, router, logger, tag, options.DirectOptions), nil
-	case C.TypeSOCKS:
-		return NewSocks(ctx, router, logger, tag, options.SocksOptions), nil
-	case C.TypeHTTP:
-		return NewHTTP(ctx, router, logger, tag, options.HTTPOptions)
-	case C.TypeMixed:
-		return NewMixed(ctx, router, logger, tag, options.MixedOptions), nil
-	case C.TypeNaive:
-		return NewNaive(ctx, router, logger, tag, options.NaiveOptions)
-	case C.TypeTUIC:
-		return NewTUIC(ctx, router, logger, tag, options.TUICOptions)
 	default:
 		return nil, E.New("unknown inbound type: ", options.Type)
 	}

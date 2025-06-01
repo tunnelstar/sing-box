@@ -11,11 +11,8 @@ type _Outbound struct {
 	Type                string                      `json:"type"`
 	Tag                 string                      `json:"tag,omitempty"`
 	DirectOptions       DirectOutboundOptions       `json:"-"`
-	SocksOptions        SocksOutboundOptions        `json:"-"`
-	HTTPOptions         HTTPOutboundOptions         `json:"-"`
 	VMessOptions        VMessOutboundOptions        `json:"-"`
 	VLESSOptions        VLESSOutboundOptions        `json:"-"`
-	TUICOptions         TUICOutboundOptions         `json:"-"`
 	SelectorOptions     SelectorOutboundOptions     `json:"-"`
 	URLTestOptions      URLTestOutboundOptions      `json:"-"`
 }
@@ -29,16 +26,10 @@ func (h *Outbound) RawOptions() (any, error) {
 		rawOptionsPtr = &h.DirectOptions
 	case C.TypeBlock, C.TypeDNS:
 		rawOptionsPtr = nil
-	case C.TypeSOCKS:
-		rawOptionsPtr = &h.SocksOptions
-	case C.TypeHTTP:
-		rawOptionsPtr = &h.HTTPOptions
 	case C.TypeVMess:
 		rawOptionsPtr = &h.VMessOptions
 	case C.TypeVLESS:
 		rawOptionsPtr = &h.VLESSOptions
-	case C.TypeTUIC:
-		rawOptionsPtr = &h.TUICOptions
 	case C.TypeSelector:
 		rawOptionsPtr = &h.SelectorOptions
 	case C.TypeURLTest:

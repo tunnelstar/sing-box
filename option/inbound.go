@@ -15,13 +15,8 @@ type _Inbound struct {
 	RedirectOptions    RedirectInboundOptions    `json:"-"`
 	TProxyOptions      TProxyInboundOptions      `json:"-"`
 	DirectOptions      DirectInboundOptions      `json:"-"`
-	SocksOptions       SocksInboundOptions       `json:"-"`
-	HTTPOptions        HTTPMixedInboundOptions   `json:"-"`
-	MixedOptions       HTTPMixedInboundOptions   `json:"-"`
 	VMessOptions       VMessInboundOptions       `json:"-"`
-	NaiveOptions       NaiveInboundOptions       `json:"-"`
 	VLESSOptions       VLESSInboundOptions       `json:"-"`
-	TUICOptions        TUICInboundOptions        `json:"-"`
 }
 
 type Inbound _Inbound
@@ -37,20 +32,10 @@ func (h *Inbound) RawOptions() (any, error) {
 		rawOptionsPtr = &h.TProxyOptions
 	case C.TypeDirect:
 		rawOptionsPtr = &h.DirectOptions
-	case C.TypeSOCKS:
-		rawOptionsPtr = &h.SocksOptions
-	case C.TypeHTTP:
-		rawOptionsPtr = &h.HTTPOptions
-	case C.TypeMixed:
-		rawOptionsPtr = &h.MixedOptions
 	case C.TypeVMess:
 		rawOptionsPtr = &h.VMessOptions
-	case C.TypeNaive:
-		rawOptionsPtr = &h.NaiveOptions
 	case C.TypeVLESS:
 		rawOptionsPtr = &h.VLESSOptions
-	case C.TypeTUIC:
-		rawOptionsPtr = &h.TUICOptions
 	case "":
 		return nil, E.New("missing inbound type")
 	default:
