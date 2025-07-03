@@ -15,17 +15,9 @@ type _Inbound struct {
 	RedirectOptions    RedirectInboundOptions    `json:"-"`
 	TProxyOptions      TProxyInboundOptions      `json:"-"`
 	DirectOptions      DirectInboundOptions      `json:"-"`
-	SocksOptions       SocksInboundOptions       `json:"-"`
-	HTTPOptions        HTTPMixedInboundOptions   `json:"-"`
-	MixedOptions       HTTPMixedInboundOptions   `json:"-"`
-	ShadowsocksOptions ShadowsocksInboundOptions `json:"-"`
 	VMessOptions       VMessInboundOptions       `json:"-"`
-	TrojanOptions      TrojanInboundOptions      `json:"-"`
-	NaiveOptions       NaiveInboundOptions       `json:"-"`
 	HysteriaOptions    HysteriaInboundOptions    `json:"-"`
-	ShadowTLSOptions   ShadowTLSInboundOptions   `json:"-"`
 	VLESSOptions       VLESSInboundOptions       `json:"-"`
-	TUICOptions        TUICInboundOptions        `json:"-"`
 	Hysteria2Options   Hysteria2InboundOptions   `json:"-"`
 }
 
@@ -42,28 +34,12 @@ func (h *Inbound) RawOptions() (any, error) {
 		rawOptionsPtr = &h.TProxyOptions
 	case C.TypeDirect:
 		rawOptionsPtr = &h.DirectOptions
-	case C.TypeSOCKS:
-		rawOptionsPtr = &h.SocksOptions
-	case C.TypeHTTP:
-		rawOptionsPtr = &h.HTTPOptions
-	case C.TypeMixed:
-		rawOptionsPtr = &h.MixedOptions
-	case C.TypeShadowsocks:
-		rawOptionsPtr = &h.ShadowsocksOptions
 	case C.TypeVMess:
 		rawOptionsPtr = &h.VMessOptions
-	case C.TypeTrojan:
-		rawOptionsPtr = &h.TrojanOptions
-	case C.TypeNaive:
-		rawOptionsPtr = &h.NaiveOptions
 	case C.TypeHysteria:
 		rawOptionsPtr = &h.HysteriaOptions
-	case C.TypeShadowTLS:
-		rawOptionsPtr = &h.ShadowTLSOptions
 	case C.TypeVLESS:
 		rawOptionsPtr = &h.VLESSOptions
-	case C.TypeTUIC:
-		rawOptionsPtr = &h.TUICOptions
 	case C.TypeHysteria2:
 		rawOptionsPtr = &h.Hysteria2Options
 	case "":

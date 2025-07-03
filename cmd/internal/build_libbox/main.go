@@ -147,7 +147,7 @@ func buildApple() {
 		"bind",
 		"-v",
 		"-target", bindTarget,
-		"-libname=box",
+		"-libname", "box",
 	}
 	if !debugEnabled {
 		args = append(args, sharedFlags...)
