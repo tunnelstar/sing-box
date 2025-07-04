@@ -247,6 +247,9 @@ clean:
 	rm -rf bin dist sing-box
 	rm -f $(shell go env GOPATH)/sing-box
 
+rename:
+	@grep -rl --exclude=Makefile 'package libbox' . | xargs sed -i '' -e 's/package libbox/package $(name)/g'
+
 update:
 	git fetch
 	git reset FETCH_HEAD --hard
