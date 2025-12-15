@@ -220,6 +220,9 @@ lib_apple:
 	go run ./cmd/internal/build_libbox -target apple
 
 lib_ios:
+	go run ./cmd/internal/build_libbox -target apple -platform ios
+
+lib_ios_debug:
 	go run ./cmd/internal/build_libbox -target apple -platform ios -debug
 
 lib:
@@ -248,3 +251,7 @@ update:
 	git fetch
 	git reset FETCH_HEAD --hard
 	git clean -fdx
+
+rename:
+	@grep -rl --exclude=Makefile 'package libbox' . | xargs sed -i '' -e 's/package libbox/package $(name)/g'
+
