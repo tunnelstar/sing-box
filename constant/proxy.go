@@ -7,6 +7,9 @@ const (
 	TypeDirect       = "direct"
 	TypeBlock        = "block"
 	TypeDNS          = "dns"
+	TypeSOCKS        = "socks"
+	TypeHTTP         = "http"
+	TypeMixed        = "mixed"
 	TypeVMess        = "vmess"
 	TypeHysteria     = "hysteria"
 	TypeVLESS        = "vless"
@@ -33,6 +36,12 @@ func ProxyDisplayName(proxyType string) string {
 		return "Block"
 	case TypeDNS:
 		return "DNS"
+	case TypeSOCKS:
+		return "SOCKS"
+	case TypeHTTP:
+		return "HTTP"
+	case TypeMixed:
+		return "Mixed"
 	case TypeVMess:
 		return "VMess"
 	case TypeHysteria:
