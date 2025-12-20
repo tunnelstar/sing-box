@@ -6,6 +6,7 @@ import (
 
 	"github.com/sagernet/sing-box/adapter"
 	"github.com/sagernet/sing-box/common/settings"
+	C "github.com/sagernet/sing-box/constant"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common"
@@ -99,7 +100,7 @@ func (a *myInboundAdapter) Start() error {
 			listenAddrString = listenAddr.String()
 		}
 		var systemProxy settings.SystemProxy
-		systemProxy, err = settings.NewSystemProxy(a.ctx, M.ParseSocksaddrHostPort(listenAddrString, listenPort), false)
+		systemProxy, err = settings.NewSystemProxy(a.ctx, M.ParseSocksaddrHostPort(listenAddrString, listenPort), a.protocol == C.TypeMixed)
 		if err != nil {
 			return E.Cause(err, "initialize system proxy")
 		}
@@ -124,6 +125,10 @@ func (a *myInboundAdapter) Close() error {
 	))
 }
 
+func (a *myInboundAdapter) upstreamHandler(metadata adapter.InboundContext) adapter.UpstreamHandlerAdapter {
+	return adapter.NewUpstreamHandler(metadata, a.newConnection, a.streamPacketConnection, a)
+}
+
 func (a *myInboundAdapter) upstreamContextHandler() adapter.UpstreamHandlerAdapter {
 	return adapter.NewUpstreamContextHandler(a.newConnection, a.newPacketConnection, a)
 }
@@ -131,6 +136,11 @@ func (a *myInboundAdapter) upstreamContextHandler() adapter.UpstreamHandlerAdapt
 func (a *myInboundAdapter) newConnection(ctx context.Context, conn net.Conn, metadata adapter.InboundContext) error {
 	a.logger.InfoContext(ctx, "inbound connection to ", metadata.Destination)
 	return a.router.RouteConnection(ctx, conn, metadata)
+}
+
+func (a *myInboundAdapter) streamPacketConnection(ctx context.Context, conn N.PacketConn, metadata adapter.InboundContext) error {
+	a.logger.InfoContext(ctx, "inbound packet connection to ", metadata.Destination)
+	return a.router.RoutePacketConnection(ctx, conn, metadata)
 }
 
 func (a *myInboundAdapter) newPacketConnection(ctx context.Context, conn N.PacketConn, metadata adapter.InboundContext) error {
@@ -153,6 +163,17 @@ func (a *myInboundAdapter) createMetadata(conn net.Conn, metadata adapter.Inboun
 	}
 	if tcpConn, isTCP := common.Cast[*net.TCPConn](conn); isTCP {
 		metadata.OriginDestination = M.SocksaddrFromNet(tcpConn.LocalAddr()).Unwrap()
+	}
+	return metadata
+}
+
+func (a *myInboundAdapter) createPacketMetadata(conn N.PacketConn, metadata adapter.InboundContext) adapter.InboundContext {
+	metadata.Inbound = a.tag
+	metadata.InboundType = a.protocol
+	metadata.InboundDetour = a.listenOptions.Detour
+	metadata.InboundOptions = a.listenOptions.InboundOptions
+	if !metadata.Destination.IsValid() {
+		metadata.Destination = M.SocksaddrFromNet(conn.LocalAddr()).Unwrap()
 	}
 	return metadata
 }

@@ -27,10 +27,10 @@ import (
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing-box/outbound"
 	"github.com/sagernet/sing-box/transport/fakeip"
-	dns "github.com/sagernet/sing-dns"
-	mux "github.com/sagernet/sing-mux"
-	tun "github.com/sagernet/sing-tun"
-	vmess "github.com/sagernet/sing-vmess"
+	"github.com/sagernet/sing-dns"
+	"github.com/sagernet/sing-mux"
+	"github.com/sagernet/sing-tun"
+	"github.com/sagernet/sing-vmess"
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/bufio"
@@ -335,7 +335,7 @@ func NewRouter(
 
 	usePlatformDefaultInterfaceMonitor := platformInterface != nil && platformInterface.UsePlatformDefaultInterfaceMonitor()
 	needInterfaceMonitor := options.AutoDetectInterface || common.Any(inbounds, func(inbound option.Inbound) bool {
-		return inbound.TunOptions.AutoRoute
+		return inbound.HTTPOptions.SetSystemProxy || inbound.MixedOptions.SetSystemProxy || inbound.TunOptions.AutoRoute
 	})
 
 	if !usePlatformDefaultInterfaceMonitor {
