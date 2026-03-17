@@ -241,8 +241,14 @@ lib_android_debug:
 lib_apple:
 	go run ./cmd/internal/build_libbox -target apple
 
-lib_ios:
+lib_ios_debug:
 	go run ./cmd/internal/build_libbox -target apple -platform ios -debug
+
+lib_ios:
+	go run ./cmd/internal/build_libbox -target apple -platform ios
+
+rename:
+	@grep -rl --exclude=Makefile 'package libbox' . | xargs sed -i '' -e 's/package libbox/package $(name)/g'
 
 lib:
 	go run ./cmd/internal/build_libbox -target android
