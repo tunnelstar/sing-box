@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	C "github.com/sagernet/sing-box/constant"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common"
@@ -74,10 +73,6 @@ func mergePathResources(options *option.Options) error {
 		}
 	}
 	for _, outbound := range options.Outbounds {
-		switch outbound.Type {
-		case C.TypeSSH:
-			mergeSSHOutboundOptions(outbound.Options.(*option.SSHOutboundOptions))
-		}
 		if tlsOptions, containsTLSOptions := outbound.Options.(option.OutboundTLSOptionsWrapper); containsTLSOptions {
 			tlsOptions.ReplaceOutboundTLSOptions(mergeTLSOutboundOptions(tlsOptions.TakeOutboundTLSOptions()))
 		}
