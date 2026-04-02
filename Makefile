@@ -240,6 +240,12 @@ lib_android:
 lib_apple:
 	go run ./cmd/internal/build_libbox -target apple
 
+lib_ios:
+	go run ./cmd/internal/build_libbox -target apple -platform "ios,iossimulator"
+
+rename:
+	@grep -rl --exclude=Makefile 'package libbox' . | xargs sed -i '' -e 's/package libbox/package $(name)/g'
+
 lib_windows:
 	$(SING_FFI) generate --config $(LIBBOX_FFI_CONFIG) --platform-type csharp
 
