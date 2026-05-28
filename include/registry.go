@@ -39,6 +39,7 @@ func OutboundRegistry() *outbound.Registry {
 	vmess.RegisterOutbound(registry)
 	vless.RegisterOutbound(registry)
 
+	registerQUICOutbounds(registry)
 	return registry
 }
 
